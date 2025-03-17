@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>香料亭</title>
+    <style>
+      .center{
+        text-align : center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="center" id = 'x'>
+      <p class = 'clear' style = 'text-align: center ; font-size: 50px'>你好</p>
+      <p class = 'clear' style = 'text-align: center ; font-size: 30px'>我应该怎么称呼你呢？</p>
+      <button class='clear' onclick="hallo()">告诉我你的名字</button>
+    </div>
+
+    <script type="text/javascript">
+    function clear(){
+      var clear = document.querySelectorAll('.clear')
+      clear.forEach(function(element) {
+          element.innerHTML = '';
+        })
+    }
+
+    function clear1(){
+      var claer1 = document.getElementById('.x');
+      x.innerHTML="";
+    }
+
+    function hallo(){
+      var username = prompt('你的名字是？');
+      if(username){
+        alert('你好，' + username + '，欢迎来到旅店。');
+        clear()
+        clear1()
+    }
+    }
+
+      </script>
+  </body>
+</html>
