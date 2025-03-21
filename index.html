@@ -10,13 +10,21 @@
     </style>
   </head>
   <body>
-    <div class="center" id = 'x'>
+    <div class="center" id = 'x' >
       <p class = 'clear' style = 'text-align: center ; font-size: 50px'>你好</p>
       <p class = 'clear' style = 'text-align: center ; font-size: 30px'>我应该怎么称呼你呢？</p>
-      <button class='clear' onclick="hallo()">告诉我你的名字</button>
+      <button class='clear' onclick="hallo()" style="width: 250px; height: 50px; font-size: 30px;">告诉我你的名字</button>
+    </div>
+    <div id = 'd'>
+      <p class = 'clear' style = 'text-align: center ; font-size: 50px'> </p>
     </div>
 
     <script type="text/javascript">
+
+    const x = document.getElementById('x');
+
+    var username
+
     function clear(){
       var clear = document.querySelectorAll('.clear')
       clear.forEach(function(element) {
@@ -25,18 +33,164 @@
     }
 
     function clear1(){
-      var claer1 = document.getElementById('.x');
-      x.innerHTML="";
+      var clear1 = document.getElementById('x');
+      clear1.innerHTML="";
     }
 
+    function hide() {
+    document.getElementById('x').style.display = 'none';
+   }
+
+   function show() {
+   document.getElementById('x').style.display = 'block';
+   }
+
     function hallo(){
-      var username = prompt('你的名字是？');
+      username = prompt('你的名字是？');
       if(username){
         alert('你好，' + username + '，欢迎来到旅店。');
         clear()
         clear1()
-    }
-    }
+        x.innerHTML = `
+          <p style = 'text-align: center ; font-size: 30px'>伟大的冒险者啊，你刚刚经历了一场惊险的探索。</p>
+          <p style = 'text-align: center ; font-size: 30px'>接下来你想做些什么呢？</p>
+          <button onclick="rest()" style="width: 250px; height: 50px; font-size: 30px;">休息</button>
+          <button onclick="explore()" style="width: 250px; height: 50px; font-size: 30px;">继续探索</button>
+          <button onclick="cheak()" style="width: 250px; height: 50px; font-size: 30px;">查看属性</button>
+        `;
+          }
+        }
+
+        var hp = 100;
+        var exp = 0;
+        var time = 0;
+        var money = 0;
+        var level = 1;
+        var date = 1;
+        var maxhp = 120;
+
+        let exploremap = Math.floor(Math.random() * 3) + 1;
+        let exploremap_1 = Math.floor(Math.random() * 3) + 1;
+        let exploremap_2 = Math.floor(Math.random() * 3) + 1;
+        let exploremap_3 = Math.floor(Math.random() * 3) + 1;
+
+        function days(){
+          if(time >= 4){
+            date += 1;
+            time = 0;
+            hide()
+            d.innerHTML = `
+            <p style = 'text-align: center ; font-size: 30px'>一天过去了~辛苦你了哦~</p>
+            `
+            setTimeout(function(){
+              d.innerHTML = `
+              <p style = 'text-align: center ; font-size: 30px'>第${date}天</p>
+              `;
+            },1500);
+            setTimeout(function(){
+              d.innerHTML = ''
+            },3000);
+            show();
+          }
+        }
+
+        function rest(){
+          if(money >= 80){
+            hp += 50;
+            money -=80
+            x.innerHTML =`
+            <p style = 'text-align: center ; font-size: 30px'>你在旅店的灯光中入眠了……</p>
+            `
+            time += 1
+            setTimeout(function () {
+              x.innerHTML =`
+              <p style = 'text-align: center ; font-size: 30px'>生命值回复了！</p>
+              <p style = 'text-align: center ; font-size: 30px'>当前生命值:${hp}/${maxhp}</p>
+              <button onclick="backmenu()" style="width: 350px; height: 50px; font-size: 30px;">迎接接下来的冒险吧！</button>
+              `;
+              days()
+            }, 1500);
+          }else{
+            x.innerHTML =`
+            <p style = 'text-align: center ; font-size: 30px'>好像没有足够的物资……</p>
+            <p style = 'text-align: center ; font-size: 30px'>当前资金：${money}，需要：80</p>
+            <button onclick="backmenu()" style="width: 250px; height: 50px; font-size: 30px;">还是出去看看吧</button>
+            `
+          }
+          }
+
+          function backmenu(){
+            x.innerHTML = `
+              <p style = 'text-align: center ; font-size: 30px'>接下来你想做些什么呢？</p>
+              <button onclick="rest()" style="width: 250px; height: 50px; font-size: 30px;">休息</button>
+              <button onclick="explore()" style="width: 250px; height: 50px; font-size: 30px;">继续探索</button>
+              <button onclick="cheak()" style="width: 250px; height: 50px; font-size: 30px;">查看属性</button>
+            `;
+          }
+
+        function explore(){
+          if(exploremap == 1){
+            x.innerHTML = `
+              <p style = 'text-align: center ; font-size: 30px'>你前往天空密境斩杀了狮鹫！</p>
+            `;
+            hp -= 30;
+            money += 200;
+            exp += 50;
+            time += 2;
+            exploremap = Math.floor(Math.random() * 3) + 1;
+            setTimeout(function () {
+              x.innerHTML = `
+              <p style = 'text-align: center ; font-size: 30px'>生命-20 金币+200 经验值+ 50</p>
+              <button onclick="backmenu()" style="width: 250px; height: 50px; font-size: 30px;">回去休整一下</button>
+              `;
+              days();
+            }, 1500);
+          }
+          else if(exploremap == 2){
+            x.innerHTML = `
+              <p style = 'text-align: center ; font-size: 30px'>你来到地下城击败了魔眼！</p>
+            `;
+            hp -= 30;
+            money += 200;
+            exp += 50;
+            time += 2;
+            exploremap = Math.floor(Math.random() * 3) + 1;
+            setTimeout(function () {
+              x.innerHTML = `
+              <p style = 'text-align: center ; font-size: 30px'>生命-20 金币+200 经验值+ 50</p>
+              <button onclick="backmenu()" style="width: 250px; height: 50px; font-size: 30px;">回去休整一下</button>
+              `;
+              days();
+            }, 1500);
+          }
+          else if(exploremap == 3){
+            x.innerHTML = `
+              <p style = 'text-align: center ; font-size: 30px'>你帮助商队击退了强盗！</p>
+            `;
+            hp -= 10;
+            money += 50;
+            exp += 20;
+            time += 1;
+            exploremap = Math.floor(Math.random() * 3) + 1;
+            setTimeout(function () {
+              x.innerHTML = `
+              <p style = 'text-align: center ; font-size: 30px'>生命-10 金币+50 经验值+ 20</p>
+              <button onclick="backmenu()" style="width: 250px; height: 50px; font-size: 30px;">回去休整一下</button>
+              `;
+              days();
+            }, 1500);
+          }
+        }
+
+        function cheak(){
+          x.innerHTML = `
+            <p style = 'text-align: center ; font-size: 30px'>姓名：${username}</p>
+            <p style = 'text-align: center ; font-size: 30px'>金币：${money}</p>
+            <p style = 'text-align: center ; font-size: 30px'>等级：${level}</p>
+            <p style = 'text-align: center ; font-size: 30px'>时间：第 ${date} 天</p>
+            <button onclick="backmenu()" style="width: 250px; height: 50px; font-size: 30px;">回去休整一下</button>
+          `;
+        }
 
       </script>
   </body>
